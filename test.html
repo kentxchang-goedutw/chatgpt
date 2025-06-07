@@ -1,1 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>倒數計時器</title>
+<style>
+  body, html {
+    margin: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at top left, #f06, #9f6, #06f);
+    font-family: "Arial", sans-serif;
+    color: #fff;
+  }
+  #timer {
+    font-size: 10vw;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+  }
+  #controls {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+  }
+  button {
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+<div id="timer">10</div>
+<div id="controls">
+  <button id="start">開始</button>
+  <button id="fullscreen">全螢幕</button>
+</div>
+<script>
+const timer = document.getElementById('timer');
+let countdown;
+let remaining = 10;
 
+document.getElementById('start').addEventListener('click', () => {
+  clearInterval(countdown);
+  remaining = 10;
+  timer.textContent = remaining;
+  countdown = setInterval(() => {
+    remaining -= 1;
+    timer.textContent = remaining;
+    if (remaining <= 0) {
+      clearInterval(countdown);
+    }
+  }, 1000);
+});
+
+document.getElementById('fullscreen').addEventListener('click', () => {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen();
+  } else {
+    document.exitFullscreen();
+  }
+});
+</script>
+</body>
+</html>
